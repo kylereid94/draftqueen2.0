@@ -1,0 +1,3 @@
+Hello from a patch!
+If you can see this, your patch workflow works.
+Success.
