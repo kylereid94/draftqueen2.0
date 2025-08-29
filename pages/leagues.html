@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+
+    <!-- Icon sets -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+
+    <title>My Leagues - DraftQueen</title>
+    <meta name="color-scheme" content="light only" />
+
+    <style>
+      .font-calsans {
+        font-family: "Cal Sans", system-ui, -apple-system, Segoe UI, Roboto,
+          sans-serif;
+      }
+
+      .glass-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .stats-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 62, 165, 0.1),
+          rgba(255, 62, 165, 0.05)
+        );
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 62, 165, 0.2);
+      }
+
+      .crown-glow {
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .leaderboard-item {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .leaderboard-item:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 62, 165, 0.3);
+      }
+
+      .rank-badge {
+        background: linear-gradient(135deg, #10b981, #059669);
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+      }
+
+      .points-display {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(5, 150, 105, 0.05)
+        );
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+      .nav-active {
+        color: #f6339a;
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+      .league-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .active-league {
+        border: 2px solid #ff3ea5;
+      }
+
+      .league-card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 62, 165, 0.4);
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.15),
+          rgba(255, 62, 165, 0.05)
+        );
+      }
+      .status-draft {
+        background: linear-gradient(135deg, #ff3ea5, #e91e63);
+        box-shadow: 0 4px 12px rgba(255, 62, 165, 0.3);
+      }
+
+      .status-active {
+        background: linear-gradient(135deg, #10b981, #059669);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+      }
+
+      .status-setup {
+        background: linear-gradient(135deg, #f59e0b, #d97706);
+        box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+      }
+      .create-btn {
+        background: linear-gradient(135deg, #ff3ea5, #e91e63);
+        box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+        transition: all 0.2s ease;
+      }
+      .join-btn {
+        transition: all 0.2s ease;
+      }
+
+      .create-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen text-white font-lexend"
+    style="background: linear-gradient(180deg, #390014 0%, #110006 30%)"
+  >
+    <!-- Background decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
+    </div>
+
+    <div class="flex flex-col h-screen relative z-10">
+      <!-- Header -->
+      <div
+        class="px-4 py-6 flex items-center justify-between relative md:max-w-6xl md:w-full md:mx-auto"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 rounded-full glass-card flex items-center justify-center"
+          >
+            <img
+              src="https://i.pravatar.cc/40?img=1"
+              class="w-8 h-8 rounded-full"
+              alt="Profile"
+            />
+          </div>
+        </div>
+        <div
+          class="flex items-center space-x-2 absolute left-[50%] -translate-x-[50%]"
+        >
+          <h1 class="font-calsans font-extrabold text-xl">DRAFT</h1>
+          <i class="fi fi-br-crown text-pink-500 crown-glow text-xl pt-1"></i>
+        </div>
+
+        <button class="p-2 rounded-xl glass-card size-10">
+          <i class="fi fi-rr-bell text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Page Title & Actions -->
+      <div
+        class="px-4 mb-6 flex items-center justify-between md:max-w-6xl md:w-full md:mx-auto"
+      >
+        <div>
+          <h1 class="font-calsans text-xl text-white mb-1">My Leagues</h1>
+          <p class="text-white/60 text-xs">Manage your fantasy leagues</p>
+        </div>
+        <div class="space-x-1">
+          <button
+            id="join-btn"
+            class="join-btn border border-white px-4 py-2 rounded-xl text-white font-semibold text-sm"
+          >
+            Join
+          </button>
+          <button
+            id="create-btn"
+            class="create-btn px-4 py-2 rounded-xl text-white font-semibold text-sm"
+          >
+            Create
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div
+        class="flex-1 px-4 pb-24 pt-2 overflow-y-auto md:max-w-6xl md:w-full md:mx-auto"
+      >
+        <!-- League Cards -->
+        <div
+          id="leagues-container"
+          class="space-y-4 grid md:grid-cols-2 *:md:h-full md:space-x-4"
+        >
+          <!-- Leagues will be populated by JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center mt-12">
+          <i class="fi fi-br-crown text-6xl text-pink-500 mb-4 crown-glow"></i>
+          <h2 class="text-xl text-white mb-2">No leagues yet</h2>
+          <p class="text-white/60 mb-6">
+            Create your first fantasy league to start competing with friends!
+          </p>
+          <button
+            onclick="document.getElementById('create-btn').click()"
+            class="create-btn px-6 py-3 rounded-xl text-white font-semibold"
+          >
+            Create Your First League
+          </button>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <div
+        class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#110006] via-[#110006] to-transparent p-4"
+      >
+        <div class="glass-card rounded-2xl">
+          <div class="flex justify-around py-3">
+            <button
+              id="btn-nav-leagues"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors nav-active"
+            >
+              <i class="fi fi-rr-list text-lg"></i>
+              <span class="text-xs">Leagues</span>
+            </button>
+            <button
+              id="btn-nav-overview"
+              class="flex flex-col items-center space-y-1"
+            >
+              <i class="fi fi-rr-home text-lg"></i>
+              <span class="text-xs">Overview</span>
+            </button>
+            <button
+              id="btn-nav-draft"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-crown text-lg"></i>
+              <span class="text-xs" id="btn-nav-draft-label">Draft</span>
+            </button>
+            <button
+              id="btn-nav-episodes"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-screen text-lg"></i>
+              <span class="text-xs">Episodes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Join League Modal -->
+      <div
+        id="join-modal"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-50"
+      >
+        <div
+          class="mx-auto mt-24 max-w-md rounded-2xl glass-card p-5 border border-white/15"
+        >
+          <div class="flex items-center justify-between mb-3">
+            <h2 class="font-semibold">Join a League</h2>
+            <button id="join-close" class="text-white/60 hover:text-white">
+              ✕
+            </button>
+          </div>
+          <p class="text-sm text-white/70 mb-3">
+            Enter the 5-character join code from the league owner.
+          </p>
+          <div class="flex items-center gap-3">
+            <input
+              id="join-code-input"
+              maxlength="5"
+              placeholder="ABCDE"
+              class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-white/40 tracking-widest uppercase"
+            />
+            <button
+              id="join-submit"
+              class="px-4 py-3 rounded-xl bg-pink-500 text-[#110006] font-semibold"
+            >
+              Join
+            </button>
+          </div>
+          <p id="join-error" class="text-xs text-pink-300 mt-2 hidden"></p>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/leagues.js"></script>
+    <script src="js/nav.js"></script>
+  </body>
+</html>

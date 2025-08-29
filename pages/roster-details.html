@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+
+    <!-- Icon sets -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+
+    <title>Roster Slot #2 - DraftQueen</title>
+    <meta name="color-scheme" content="light only" />
+
+    <style>
+      .font-calsans {
+        font-family: "Cal Sans", system-ui, -apple-system, Segoe UI, Roboto,
+          sans-serif;
+      }
+
+      .glass-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .current-queen-card {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.1),
+          rgba(16, 185, 129, 0.05)
+        );
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .former-queen-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .crown-glow {
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .nav-active {
+        color: #f6339a;
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .points-display {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.15),
+          rgba(16, 185, 129, 0.05)
+        );
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+
+      .swap-btn {
+        background: linear-gradient(135deg, #ff3ea5, #e91e63);
+        box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+        transition: all 0.2s ease;
+      }
+
+      .swap-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+      }
+
+      .eliminated-overlay {
+        position: relative;
+      }
+
+      .eliminated-overlay::after {
+        content: "ELIMINATED";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-15deg);
+        background: rgba(239, 68, 68, 0.9);
+        color: white;
+        padding: 4px 12px;
+        border-radius: 4px;
+        font-size: 10px;
+        font-weight: bold;
+        letter-spacing: 1px;
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen text-white font-lexend"
+    style="background: linear-gradient(180deg, #390014 0%, #110006 30%)"
+  >
+    <!-- Background decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
+    </div>
+
+    <div class="flex flex-col h-screen relative z-10">
+      <!-- Header -->
+      <div class="px-4 py-6 flex items-center justify-between relative">
+        <div class="flex items-center space-x-3">
+          <button class="p-2 rounded-xl glass-card size-10">
+            <i class="fi fi-rr-arrow-left text-sm"></i>
+          </button>
+        </div>
+
+        <div
+          class="flex items-center space-x-2 absolute left-[50%] -translate-x-[50%]"
+        >
+          <h1 class="font-calsans font-extrabold text-xl">DRAFT</h1>
+          <i class="fi fi-br-crown text-pink-500 crown-glow text-xl pt-1"></i>
+        </div>
+
+        <button class="p-2 rounded-xl glass-card size-10">
+          <i class="fi fi-rr-bell text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 px-4 pb-24 overflow-y-auto">
+        <div>
+          <h1 class="font-calsans text-2xl text-white mb-1">Slot #2</h1>
+        </div>
+        <!-- Current Queen -->
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold text-white mb-4">Current Queen</h3>
+
+          <div class="current-queen-card rounded-2xl p-5">
+            <div class="flex items-center space-x-4 mb-4">
+              <div
+                class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center"
+              >
+                <span class="text-white font-bold text-2xl">SP</span>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-calsans text-xl text-white">
+                  Sapphira Cristál
+                </h4>
+                <p class="text-sm text-emerald-300 mb-2">
+                  Active since Episode 1
+                </p>
+                <div class="flex items-center space-x-3 text-xs text-white/60">
+                  Points earned while in your roster
+                </div>
+              </div>
+            </div>
+
+            <!-- Current Performance Stats -->
+            <div class="grid grid-cols-3 gap-4 mb-4">
+              <div class="text-center">
+                <div class="points-display rounded-lg py-2 mb-1">
+                  <div class="text-lg font-bold text-emerald-300">156</div>
+                </div>
+                <p class="text-xs text-white/60">Total Points</p>
+              </div>
+              <div class="text-center">
+                <div class="points-display rounded-lg py-2 mb-1">
+                  <div class="text-lg font-bold text-emerald-300">39</div>
+                </div>
+                <p class="text-xs text-white/60">Avg per Episode</p>
+              </div>
+              <div class="text-center">
+                <div class="points-display rounded-lg py-2 mb-1">
+                  <div class="text-lg font-bold text-emerald-300">52</div>
+                </div>
+                <p class="text-xs text-white/60">Best Episode</p>
+              </div>
+            </div>
+
+            <!-- Episode Breakdown -->
+            <div class="space-y-2 mb-4">
+              <h5 class="text-sm font-semibold text-white">
+                Episode Performance
+              </h5>
+              <div class="flex justify-between text-sm">
+                <span class="text-white/70">Episode 1</span>
+                <span class="text-emerald-300 font-semibold">32 pts</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-white/70">Episode 2</span>
+                <span class="text-emerald-300 font-semibold">42 pts</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-white/70">Episode 3</span>
+                <span class="text-emerald-300 font-semibold">52 pts</span>
+              </div>
+              <div class="flex justify-between text-sm">
+                <span class="text-white/70">Episode 4</span>
+                <span class="text-emerald-300 font-semibold">30 pts</span>
+              </div>
+            </div>
+
+            <!-- Swap Button (if swapping is allowed) -->
+            <button
+              class="swap-btn w-full py-3 rounded-xl text-white font-semibold text-sm"
+            >
+              <i class="fi fi-rr-refresh mr-2"></i>Swap Queen
+            </button>
+          </div>
+        </div>
+
+        <!-- Example with slot that has history -->
+        <div hidden class="mt-8 opacity-50">
+          <h4 class="text-sm font-semibold text-white/60 mb-3">
+            Example: Slot with History
+          </h4>
+          <div class="space-y-3">
+            <!-- Former Queen 1 - Eliminated -->
+            <div class="former-queen-card rounded-xl p-4">
+              <div class="flex items-center space-x-4">
+                <div
+                  class="eliminated-overlay w-12 h-12 rounded-full bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center opacity-60"
+                >
+                  <span class="text-white font-bold text-lg">PJ</span>
+                </div>
+                <div class="flex-1">
+                  <h5 class="font-semibold text-white text-sm">Plane Jane</h5>
+                  <p class="text-xs text-red-300 mb-1">
+                    Episodes 1-2 • Eliminated
+                  </p>
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs text-white/60">2 episodes played</span>
+                    <span class="text-sm font-semibold text-red-300"
+                      >45 pts total</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Former Queen 2 - Swapped Out -->
+            <div class="former-queen-card rounded-xl p-4">
+              <div class="flex items-center space-x-4">
+                <div
+                  class="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center opacity-60"
+                >
+                  <span class="text-white font-bold text-lg">MN</span>
+                </div>
+                <div class="flex-1">
+                  <h5 class="font-semibold text-white text-sm">
+                    Mhi'ya Iman Le'Paige
+                  </h5>
+                  <p class="text-xs text-white/60 mb-1">
+                    Episodes 3-5 • Swapped out
+                  </p>
+                  <div class="flex justify-between items-center">
+                    <span class="text-xs text-white/60">3 episodes played</span>
+                    <span class="text-sm font-semibold text-white/70"
+                      >67 pts total</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <div
+        class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#110006] via-[#110006] to-transparent p-4"
+      >
+        <div class="glass-card rounded-2xl">
+          <div class="flex justify-around py-3">
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-list text-lg"></i>
+              <span class="text-xs">Leagues</span>
+            </button>
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-home text-lg"></i>
+              <span class="text-xs">Overview</span>
+            </button>
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-crown text-lg"></i>
+              <span class="text-xs">Draft</span>
+            </button>
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-screen text-lg"></i>
+              <span class="text-xs">Episodes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

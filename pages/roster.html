@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+
+    <!-- Icon sets -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+
+    <title>My Roster - DraftQueen</title>
+    <meta name="color-scheme" content="light only" />
+
+    <style>
+      .font-calsans {
+        font-family: "Cal Sans", system-ui, -apple-system, Segoe UI, Roboto,
+          sans-serif;
+      }
+
+      .glass-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .roster-slot {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .roster-slot:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 62, 165, 0.3);
+        cursor: pointer;
+      }
+
+      .roster-slot.eliminated {
+        background: linear-gradient(
+          135deg,
+          rgba(239, 68, 68, 0.1),
+          rgba(239, 68, 68, 0.05)
+        );
+        border-color: rgba(239, 68, 68, 0.3);
+        opacity: 0.7;
+      }
+
+      .roster-slot.eliminated:hover {
+        border-color: rgba(239, 68, 68, 0.5);
+      }
+
+      .timeline-btn {
+        background: linear-gradient(135deg, #ff3ea5, #e91e63);
+        box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+        transition: all 0.2s ease;
+      }
+
+      .timeline-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+      }
+
+      .crown-glow {
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .nav-active {
+        color: #f6339a;
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .member-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.06),
+          rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .member-card:hover {
+        transform: translateY(-1px);
+        border-color: rgba(255, 62, 165, 0.2);
+      }
+
+      .points-display {
+        background: linear-gradient(
+          135deg,
+          rgba(16, 185, 129, 0.15),
+          rgba(16, 185, 129, 0.05)
+        );
+        border: 1px solid rgba(16, 185, 129, 0.3);
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen text-white font-lexend"
+    style="background: linear-gradient(180deg, #390014 0%, #110006 30%)"
+  >
+    <!-- Background decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
+    </div>
+
+    <div class="flex flex-col h-screen relative z-10">
+      <!-- Header -->
+      <div class="px-4 py-6 flex items-center justify-between relative">
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 rounded-full glass-card flex items-center justify-center"
+          >
+            <img
+              src="https://i.pravatar.cc/40?img=1"
+              class="w-8 h-8 rounded-full"
+              alt="Profile"
+            />
+          </div>
+        </div>
+        <div
+          class="flex items-center space-x-2 absolute left-[50%] -translate-x-[50%]"
+        >
+          <h1 class="font-calsans font-extrabold text-xl">ROSTER</h1>
+          <i class="fi fi-br-crown text-pink-500 crown-glow text-xl pt-1"></i>
+        </div>
+
+        <button class="p-2 rounded-xl glass-card size-10">
+          <i class="fi fi-rr-bell text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Page Title & Timeline Button -->
+      <div class="px-4 mb-6 flex items-center justify-between">
+        <div>
+          <h1 class="font-calsans text-2xl text-white mb-1">My Roster</h1>
+          <p class="text-white/60 text-sm"></p>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="flex-1 px-4 pb-24 overflow-y-auto">
+        <!-- Your Roster Slots (dynamic) -->
+        <div class="space-y-3 mb-8" id="my-roster">
+          <!-- Skeleton placeholders; JS will overwrite -->
+          <div
+            class="rounded-2xl glass-card p-4 border border-white/10 animate-pulse"
+          >
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 rounded-full bg-white/10"></div>
+              <div class="h-4 bg-white/10 rounded w-24"></div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="inline-flex items-center px-6 py-3 rounded-lg bg-white/10 text-xs h-6"
+              ></span>
+              <span
+                class="inline-flex items-center px-6 py-3 rounded-lg bg-white/10 text-xs h-6"
+              ></span>
+              <span
+                class="inline-flex items-center px-6 py-3 rounded-lg bg-white/10 text-xs h-6"
+              ></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other League Members (dynamic) -->
+        <div class="mb-4" id="league-members">
+          <h3 class="text-lg font-semibold text-white mb-4">League Members</h3>
+          <div class="grid grid-cols-2 gap-3" id="league-members-list">
+            <!-- Skeletons; JS will overwrite -->
+            <div class="member-card rounded-xl p-4 animate-pulse">
+              <div class="flex items-center space-x-3 mb-3">
+                <div class="w-8 h-8 rounded-full bg-white/10"></div>
+                <div class="flex-1">
+                  <div class="h-4 bg-white/10 rounded w-20 mb-1"></div>
+                  <div class="h-3 bg-white/10 rounded w-16"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="h-4 bg-white/10 rounded w-10"></div>
+                <div class="h-6 bg-white/10 rounded w-12"></div>
+              </div>
+            </div>
+            <div class="member-card rounded-xl p-4 animate-pulse">
+              <div class="flex items-center space-x-3 mb-3">
+                <div class="w-8 h-8 rounded-full bg-white/10"></div>
+                <div class="flex-1">
+                  <div class="h-4 bg-white/10 rounded w-20 mb-1"></div>
+                  <div class="h-3 bg-white/10 rounded w-16"></div>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="h-4 bg-white/10 rounded w-10"></div>
+                <div class="h-6 bg-white/10 rounded w-12"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <div
+        class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#110006] via-[#110006] to-transparent p-4"
+      >
+        <div class="glass-card rounded-2xl">
+          <div class="flex justify-around py-3">
+            <button
+              id="btn-nav-leagues"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-list text-lg"></i>
+              <span class="text-xs">Leagues</span>
+            </button>
+            <button
+              id="btn-nav-overview"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-home text-lg"></i>
+              <span class="text-xs">Overview</span>
+            </button>
+            <button
+              id="btn-nav-draft"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors nav-active"
+            >
+              <i class="fi fi-rr-crown text-lg"></i>
+              <span class="text-xs" id="btn-nav-draft-label">Draft</span>
+            </button>
+            <button
+              id="btn-nav-episodes"
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-screen text-lg"></i>
+              <span class="text-xs">Episodes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/nav.js"></script>
+    <script src="js/roster.js"></script>
+  </body>
+</html>

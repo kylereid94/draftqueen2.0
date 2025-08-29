@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind build -->
+    <link href="/src/output.css" rel="stylesheet" />
+
+    <!-- Icon sets used across the app -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+
+    <title>DraftQueen • Sign in</title>
+    <meta name="color-scheme" content="light only" />
+    <style>
+      /* Small helpers that play nice with Tailwind */
+      .font-calsans {
+        font-family: "Cal Sans", system-ui, -apple-system, Segoe UI, Roboto,
+          sans-serif;
+      }
+      .glass-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .input-glass {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 62, 165, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .input-glass:focus {
+        background: rgba(255, 255, 255, 0.15);
+        border-color: #ff3ea5;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.2);
+      }
+      .btn-primary {
+        background: linear-gradient(180deg, #ff3ea5, #e91e63);
+        border: none;
+        box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+      }
+
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .crown-glow {
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+    </style>
+  </head>
+  <body
+    class="bg-linear-to-b from-[#390014] to-[#110006] to-30% min-h-screen text-white font-lexend"
+  >
+    <main class="min-h-screen w-full flex items-center justify-center p-4">
+      <section
+        class="w-full max-w-sm glass-card border border-white/10 rounded-2xl shadow-xl"
+      >
+        <!-- Header / Brand -->
+        <div class="px-5 pt-6 pb-3 text-center">
+          <h1 class="font-calsans font-extrabold text-5xl mr-3">
+            Draft
+            <i class="fi fi-br-crown text-3xl text-pink-500 crown-glow"></i>
+          </h1>
+          <p class="text-white/70 text-sm mb-4">
+            Fantasy leagues for Drag Race fans
+          </p>
+        </div>
+
+        <!-- Segmented toggle -->
+        <div class="px-3">
+          <div
+            class="relative grid grid-cols-2 bg-white/10 rounded-xl p-1 text-sm"
+          >
+            <button
+              id="tab-signin"
+              class="tab-btn rounded-lg py-2 transition active z-10"
+            >
+              Sign In
+            </button>
+            <button
+              id="tab-signup"
+              class="tab-btn rounded-lg py-2 transition z-10"
+            >
+              Sign Up
+            </button>
+            <div
+              id="tab-underline"
+              class="absolute top-1 left-1 h-[calc(100%-0.5rem)] w-[calc(50%-0.25rem)] rounded-lg bg-[#ff2e8f] transition-all"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Forms wrapper -->
+        <div class="px-5 pb-5 pt-4">
+          <!-- Session notice (shown if already signed in) -->
+          <div
+            id="session-row"
+            class="hidden mb-3 flex items-center justify-between gap-2 rounded-lg border border-white/15 bg-white/5 p-3 text-xs"
+          >
+            <span class="text-white/80">You're already signed in.</span>
+            <div class="flex items-center gap-2">
+              <button
+                id="btn-continue"
+                type="button"
+                class="px-3 py-2 rounded-lg bg-[#ff2e8f] text-white"
+              >
+                Continue
+              </button>
+              <button
+                id="btn-signout2"
+                type="button"
+                class="px-3 py-2 rounded-lg bg-white/10 text-white"
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+          <!-- Alerts -->
+          <div
+            id="alert"
+            class="hidden mb-3 text-xs rounded-lg p-3 border"
+          ></div>
+
+          <!-- Sign in form -->
+          <form id="form-signin" class="space-y-4" autocomplete="on">
+            <div class="space-y-2">
+              <label
+                class="text-xs font-medium text-white/80 uppercase tracking-wide"
+                for="si-email"
+                >Email</label
+              >
+              <div class="relative">
+                <i
+                  class="fi fi-rr-envelope absolute left-3 top-1/2 -translate-y-1/2 text-white/50 pt-1"
+                ></i>
+                <input
+                  id="si-email"
+                  type="email"
+                  inputmode="email"
+                  required
+                  class="input-glass w-full pl-11 pr-4 py-4 rounded-xl text-white placeholder-white/40 text-sm"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label
+                class="text-xs font-medium text-white/80 uppercase tracking-wide"
+                for="si-password"
+                >Password</label
+              >
+              <div class="relative">
+                <i
+                  class="fi fi-rr-lock absolute left-3 top-1/2 -translate-y-1/2 text-white/50 pt-1"
+                ></i>
+                <input
+                  id="si-password"
+                  type="password"
+                  required
+                  minlength="6"
+                  class="input-glass w-full pl-11 pr-12 py-4 rounded-xl text-white placeholder-white/40 text-sm"
+                  placeholder="••••••••"
+                />
+                <button
+                  type="button"
+                  data-toggle-password="si-password"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 text-xs"
+                >
+                  Show
+                </button>
+              </div>
+              <div class="text-right">
+                <button
+                  id="btn-forgot"
+                  type="button"
+                  class="text-xs text-pink-400 hover:text-pink-300 transition-colors"
+                >
+                  Forgot password?
+                </button>
+              </div>
+            </div>
+
+            <button
+              id="btn-signin"
+              type="submit"
+              class="btn-primary w-full py-4 rounded-xl font-semibold text-white text-sm"
+            >
+              Sign in
+            </button>
+          </form>
+
+          <!-- Sign up form -->
+          <form id="form-signup" class="space-y-4 hidden" autocomplete="on">
+            <div class="space-y-2">
+              <label
+                class="text-xs font-medium text-white/80 uppercase tracking-wide"
+                >Email</label
+              >
+              <div class="relative">
+                <i
+                  class="fi fi-rr-envelope absolute left-3 top-1/2 -translate-y-1/2 text-white/50"
+                ></i>
+                <input
+                  id="su-email"
+                  type="email"
+                  inputmode="email"
+                  required
+                  class="input-glass w-full pl-11 pr-4 py-4 rounded-xl text-white placeholder-white/40 text-sm"
+                  placeholder="you@example.com"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <label
+                class="text-xs font-medium text-white/80 uppercase tracking-wide"
+                for="su-password"
+                >Password</label
+              >
+              <div class="relative">
+                <i
+                  class="fi fi-rr-lock absolute left-3 top-1/2 -translate-y-1/2 text-white/50"
+                ></i>
+                <input
+                  id="su-password"
+                  type="password"
+                  required
+                  minlength="6"
+                  class="input-glass w-full pl-11 pr-4 py-4 rounded-xl text-white placeholder-white/40 text-sm"
+                  placeholder="At least 6 characters"
+                />
+                <button
+                  type="button"
+                  data-toggle-password="su-password"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 text-xs"
+                >
+                  Show
+                </button>
+              </div>
+            </div>
+
+            <div class="flex items-start gap-2 text-xs text-white/70">
+              <input
+                id="agree"
+                type="checkbox"
+                class="mt-[3px] accent-[#ff2e8f]"
+              />
+              <label for="agree"
+                >I agree to the
+                <a
+                  class="text-pink-400 hover:text-pink-300 transition-colors underline"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                  >Terms of Service</a
+                >
+                and
+                <a
+                  class="text-pink-400 hover:text-pink-300 transition-colors underline"
+                  href="#"
+                  target="_blank"
+                  rel="noopener"
+                  >Privacy Policy</a
+                >.</label
+              >
+            </div>
+
+            <button
+              id="btn-signup"
+              type="submit"
+              class="btn-primary w-full py-4 rounded-xl font-semibold text-white text-sm"
+            >
+              Create account
+            </button>
+          </form>
+
+          <p class="text-center text-xs text-white/60 mt-5">
+            Join the ultimate fantasy experience for RuPaul's Drag Race fans
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Supabase JS via ESM + page logic -->
+    <script type="module">
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.1/+esm";
+
+      // --- Helpers ---
+      const $ = (s, r = document) => r.querySelector(s);
+      const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+      const alertBox = $("#alert");
+      function showAlert(msg, type = "error") {
+        alertBox.classList.remove("hidden");
+        alertBox.textContent = msg;
+        if (type === "error") {
+          alertBox.className =
+            "mb-3 text-xs rounded-lg p-3 border bg-[#2a000c] border-[#ff2e8f]/40 text-[#ffbada]";
+        } else {
+          alertBox.className =
+            "mb-3 text-xs rounded-lg p-3 border bg-[#042a19] border-emerald-400/40 text-emerald-200";
+        }
+      }
+      function clearAlert() {
+        alertBox.classList.add("hidden");
+        alertBox.textContent = "";
+      }
+
+      // Move the pink underline when switching tabs
+      function setActiveTab(which) {
+        const underline = $("#tab-underline");
+        if (which === "signup") {
+          $("#form-signin").classList.add("hidden");
+          $("#form-signup").classList.remove("hidden");
+          $("#tab-signin").classList.remove("active");
+          $("#tab-signup").classList.add("active");
+          underline.style.transform = "translateX(100%)";
+        } else {
+          $("#form-signup").classList.add("hidden");
+          $("#form-signin").classList.remove("hidden");
+          $("#tab-signup").classList.remove("active");
+          $("#tab-signin").classList.add("active");
+          underline.style.transform = "translateX(0)";
+        }
+      }
+
+      // Toggle passwords
+      $$("[data-toggle-password]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-toggle-password");
+          const input = document.getElementById(id);
+          const isPwd = input.type === "password";
+          input.type = isPwd ? "text" : "password";
+          btn.textContent = isPwd ? "Hide" : "Show";
+        });
+      });
+
+      // Tab events + URL seed (e.g. ?mode=signup)
+      $("#tab-signin").addEventListener("click", () => setActiveTab("signin"));
+      $("#tab-signup").addEventListener("click", () => setActiveTab("signup"));
+      const params = new URLSearchParams(location.search);
+      const mode = params.get("mode");
+      if (mode === "signup") setActiveTab("signup");
+
+      // Load keys from /supabase.txt (expects lines SUPABASE_URL=... and SUPABASE_ANON_KEY=...)
+      async function loadKeys() {
+        try {
+          const res = await fetch("/supabase.txt", { cache: "no-store" });
+          const text = await res.text();
+          const url = (text.match(/^SUPABASE_URL=(.*)$/m) || [])[1]?.trim();
+          const key = (text.match(/^SUPABASE_ANON_KEY=(.*)$/m) ||
+            [])[1]?.trim();
+          if (!url || !key)
+            throw new Error(
+              "Missing SUPABASE_URL or SUPABASE_ANON_KEY in supabase.txt"
+            );
+          return { url, key };
+        } catch (e) {
+          console.error(e);
+          showAlert(
+            "Supabase config not found. Ensure supabase.txt is present at the project root.",
+            "error"
+          );
+          throw e;
+        }
+      }
+
+      const { url: SUPABASE_URL, key: SUPABASE_ANON_KEY } = await loadKeys();
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: true, autoRefreshToken: true },
+      });
+
+      // If already signed in, only redirect if a returnTo param is present; otherwise, go to overview
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      const returnToParam = params.get("returnTo");
+      if (session && returnToParam) {
+        location.replace(returnToParam);
+      } else if (session) {
+        location.replace("/pages/leagues.html");
+      }
+
+      // Session notice actions
+      const cont = document.getElementById("btn-continue");
+      if (cont) {
+        cont.addEventListener("click", () => {
+          const rt = params.get("returnTo");
+          if (rt) return location.replace(rt);
+          if (document.referrer) return (location.href = document.referrer);
+          // fallbacks
+          try {
+            history.back();
+          } catch (_) {}
+        });
+      }
+      const signout2 = document.getElementById("btn-signout2");
+      if (signout2) {
+        signout2.addEventListener("click", async () => {
+          await supabase.auth.signOut();
+          // Hide the session row and show the sign-in form again
+          const row = document.getElementById("session-row");
+          if (row) row.classList.add("hidden");
+          setActiveTab("signin");
+          showAlert("Signed out. You can sign in again below.", "success");
+        });
+      }
+
+      // --- Sign in ---
+      $("#form-signin").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        clearAlert();
+        const email = /** @type {HTMLInputElement} */ (
+          document.getElementById("si-email")
+        ).value.trim();
+        const password = /** @type {HTMLInputElement} */ (
+          document.getElementById("si-password")
+        ).value;
+        const btn = /** @type {HTMLButtonElement} */ (
+          document.getElementById("btn-signin")
+        );
+        btn.disabled = true;
+        btn.textContent = "Signing in…";
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+        btn.disabled = false;
+        btn.textContent = "Sign in";
+        if (error) return showAlert(error.message);
+        const returnTo = params.get("returnTo");
+        if (returnTo) location.replace(returnTo);
+        else location.replace("/pages/leagues.html");
+      });
+
+      // Forgot password -> send reset email using the Sign In email field
+      $("#btn-forgot").addEventListener("click", async () => {
+        clearAlert();
+        const email = /** @type {HTMLInputElement} */ (
+          document.getElementById("si-email")
+        ).value.trim();
+        if (!email)
+          return showAlert(
+            "Enter your email above and press “Forgot password?” again."
+          );
+        const redirectTo = `${location.origin}/pages/auth.html`;
+        const { data, error } = await supabase.auth.resetPasswordForEmail(
+          email,
+          { redirectTo }
+        );
+        if (error) return showAlert(error.message);
+        showAlert("Password reset email sent. Check your inbox.", "success");
+      });
+
+      // --- Sign up ---
+      $("#form-signup").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        clearAlert();
+        const email = /** @type {HTMLInputElement} */ (
+          document.getElementById("su-email")
+        ).value.trim();
+        const password = /** @type {HTMLInputElement} */ (
+          document.getElementById("su-password")
+        ).value;
+        const agree = /** @type {HTMLInputElement} */ (
+          document.getElementById("agree")
+        ).checked;
+        if (!agree)
+          return showAlert("Please agree to the Terms & Privacy to continue.");
+        const btn = /** @type {HTMLButtonElement} */ (
+          document.getElementById("btn-signup")
+        );
+        btn.disabled = true;
+        btn.textContent = "Creating…";
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { emailRedirectTo: `${location.origin}/pages/auth.html` },
+        });
+        btn.disabled = false;
+        btn.textContent = "Create account";
+        if (error) return showAlert(error.message);
+        if (data.user?.identities && data.user.identities.length === 0) {
+          // Email already registered in some projects returns no identities
+          return showAlert(
+            "This email is already registered. Try signing in.",
+            "error"
+          );
+        }
+        showAlert(
+          "Check your email to confirm your account. After confirming, return here to sign in. If you are already signed in, use Continue above.",
+          "success"
+        );
+        setActiveTab("signin");
+      });
+
+      // Basic focus style tweak for keyboard users
+      $$("input, button").forEach((el) => {
+        el.addEventListener("keyup", (e) => {
+          if (e.key === "Tab") el.classList.add("focus-ring");
+        });
+        el.addEventListener("blur", () => el.classList.remove("focus-ring"));
+      });
+    </script>
+  </body>
+</html>

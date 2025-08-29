@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DraftQueen · Fantasy Reality Leagues</title>
+    <meta
+      name="description"
+      content="Run fantasy leagues for your favorite reality TV seasons. Draft queens, track episodes, and compete with friends."
+    />
+
+    <!-- Tailwind (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dq: {
+                bg: "#0c0b10",
+                card: "rgba(255,255,255,0.06)",
+                stroke: "rgba(255,255,255,0.12)",
+              },
+            },
+            boxShadow: {
+              glow: "0 10px 40px rgba(236,72,153,0.25)",
+            },
+            backdropBlur: {
+              xs: "2px",
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- UIcons (for consistency with app icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+
+    <style>
+      /* App-style glass card used across pages */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .hero-gradient {
+        background: radial-gradient(
+            1200px 600px at 20% -10%,
+            rgba(236, 72, 153, 0.25),
+            transparent 60%
+          ),
+          radial-gradient(
+            1000px 500px at 100% 0%,
+            rgba(139, 92, 246, 0.25),
+            transparent 60%
+          ),
+          #0c0b10;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen text-white hero-gradient">
+    <!-- Top Nav -->
+    <header class="sticky top-0 z-40">
+      <div
+        class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between"
+      >
+        <a href="/" class="flex items-center space-x-3">
+          <div
+            class="w-9 h-9 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 grid place-items-center shadow-glow"
+          >
+            <i class="fi fi-sr-crown text-sm"></i>
+          </div>
+          <span class="font-semibold tracking-wide">DraftQueen</span>
+        </a>
+        <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
+          <a href="/pages/leagues.html" class="hover:text-white">Leagues</a>
+          <a href="/pages/overview.html" class="hover:text-white">Overview</a>
+          <a href="/pages/episodes.html" class="hover:text-white">Episodes</a>
+          <a href="/pages/draft.html" class="hover:text-white">Draft</a>
+          <a href="/pages/auth.html" class="hover:text-white">Sign In</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="relative">
+      <div
+        class="max-w-6xl mx-auto px-4 pt-16 pb-10 grid md:grid-cols-2 gap-8 items-center"
+      >
+        <div>
+          <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+            Fantasy Leagues for Reality TV — reimagined.
+          </h1>
+          <p class="text-white/70 text-lg mb-8">
+            Draft your queens, track episode scores in real time, and climb the
+            leaderboard with friends. Built on Supabase, designed for drama.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <a
+              id="cta-primary"
+              href="/pages/auth.html"
+              class="px-5 py-3 rounded-xl bg-pink-500 text-dq-bg font-semibold hover:opacity-95 shadow-glow"
+              >Get Started</a
+            >
+            <a
+              id="cta-secondary"
+              href="/pages/leagues.html"
+              class="px-5 py-3 rounded-xl glass-card hover:bg-white/10"
+              >Browse Leagues</a
+            >
+          </div>
+          <div class="mt-6 text-xs text-white/60">
+            Already playing?
+            <a
+              id="cta-continue"
+              href="/pages/leagues.html"
+              class="underline text-white/80 hover:text-white"
+              >Continue where you left off →</a
+            >
+          </div>
+        </div>
+
+        <div class="relative">
+          <div
+            class="rounded-2xl glass-card border border-white/15 overflow-hidden"
+          >
+            <img
+              src="/assets/SlaysianRoyaleCast.png"
+              alt="App preview"
+              class="w-full object-cover"
+            />
+          </div>
+          <div
+            class="absolute -bottom-6 -left-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-purple-500/40 to-pink-500/40 blur-2xl -z-10"
+          ></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-12">
+      <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-4">
+        <div class="p-5 rounded-2xl glass-card">
+          <div
+            class="w-10 h-10 rounded-lg bg-white/10 grid place-items-center mb-3"
+          >
+            <i class="fi fi-rr-crown"></i>
+          </div>
+          <h3 class="font-semibold mb-1">Smart Drafts</h3>
+          <p class="text-sm text-white/70">
+            Snake or linear formats, unique or multi-ownership with caps,
+            commissioner-controlled order.
+          </p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card">
+          <div
+            class="w-10 h-10 rounded-lg bg-white/10 grid place-items-center mb-3"
+          >
+            <i class="fi fi-rr-stats"></i>
+          </div>
+          <h3 class="font-semibold mb-1">Live Scoring</h3>
+          <p class="text-sm text-white/70">
+            Episode-by-episode points roll up to rosters and league leaderboards
+            automatically.
+          </p>
+        </div>
+        <div class="p-5 rounded-2xl glass-card">
+          <div
+            class="w-10 h-10 rounded-lg bg-white/10 grid place-items-center mb-3"
+          >
+            <i class="fi fi-rr-users-alt"></i>
+          </div>
+          <h3 class="font-semibold mb-1">Leagues with Friends</h3>
+          <p class="text-sm text-white/70">
+            Invite by email, set house rules, and track bragging rights all
+            season long.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="py-8">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="rounded-2xl glass-card p-6">
+          <h2 class="text-xl font-semibold mb-4">How it works</h2>
+          <ol class="grid md:grid-cols-3 gap-4 text-sm text-white/80">
+            <li class="rounded-xl bg-white/5 p-4">
+              <div class="font-semibold mb-1">1. Create or Join</div>
+              Spin up a league for the current season, or join one from a
+              friend.
+            </li>
+            <li class="rounded-xl bg-white/5 p-4">
+              <div class="font-semibold mb-1">2. Draft</div>
+              Commissioner sets order. Pick unique rosters or multi-ownership up
+              to a cap.
+            </li>
+            <li class="rounded-xl bg-white/5 p-4">
+              <div class="font-semibold mb-1">3. Score & Win</div>
+              Enter episode results, track points, and take the crown.
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10">
+      <div
+        class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60"
+      >
+        <div class="flex items-center gap-2">
+          <div
+            class="w-7 h-7 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 grid place-items-center"
+          >
+            <i class="fi fi-sr-crown text-[10px]"></i>
+          </div>
+          <span>DraftQueen</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="/pages/leagues.html" class="hover:text-white">Leagues</a>
+          <a href="/pages/auth.html" class="hover:text-white">Sign In</a>
+          <a href="#" class="text-white/40 cursor-default"
+            >© <span id="year"></span
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Small helper: if user has an active league, make primary CTA go straight there -->
+    <script>
+      (function () {
+        const id = localStorage.getItem("activeLeagueId");
+        const status = (
+          localStorage.getItem("activeLeagueStatus") || ""
+        ).toLowerCase();
+        const ctaPrimary = document.getElementById("cta-primary");
+        const ctaSecondary = document.getElementById("cta-secondary");
+        const ctaContinue = document.getElementById("cta-continue");
+        const year = document.getElementById("year");
+        if (year) year.textContent = new Date().getFullYear();
+        if (id) {
+          // If a league is active, let users jump right back in
+          const path = status === "active" ? "overview" : "overview"; // same landing inside app
+          const href = `/pages/${path}.html?league=${encodeURIComponent(id)}`;
+          if (ctaPrimary) {
+            ctaPrimary.textContent = "Continue to League";
+            ctaPrimary.href = href;
+          }
+          if (ctaSecondary) {
+            ctaSecondary.textContent = "Browse All Leagues";
+          }
+          if (ctaContinue) {
+            ctaContinue.href = href;
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

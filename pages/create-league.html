@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cal+Sans&family=Lexend:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS -->
+    <link href="/src/output.css" rel="stylesheet" />
+
+    <!-- Icon sets -->
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-solid-rounded/css/uicons-solid-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/3.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
+    />
+
+    <title>Create League - DraftQueen</title>
+    <meta name="color-scheme" content="light only" />
+
+    <style>
+      .font-calsans {
+        font-family: "Cal Sans", system-ui, -apple-system, Segoe UI, Roboto,
+          sans-serif;
+      }
+
+      .glass-card {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.04)
+        );
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .form-card {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.08),
+          rgba(255, 255, 255, 0.02)
+        );
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .input-field {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 62, 165, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.2s ease;
+      }
+
+      .input-field:focus {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 62, 165, 0.5);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 62, 165, 0.1);
+      }
+
+      .create-btn {
+        background: linear-gradient(135deg, #ff3ea5, #e91e63);
+        box-shadow: 0 4px 15px rgba(255, 62, 165, 0.3);
+        transition: all 0.2s ease;
+      }
+
+      .create-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(255, 62, 165, 0.4);
+      }
+
+      .create-btn:active {
+        transform: scale(0.98);
+      }
+
+      .crown-glow {
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .nav-active {
+        color: #f6339a;
+        filter: drop-shadow(0 0 8px rgba(255, 62, 165, 0.6));
+      }
+
+      .radio-custom {
+        accent-color: #ff3ea5;
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen text-white font-lexend"
+    style="background: linear-gradient(180deg, #390014 0%, #110006 30%)"
+  >
+    <!-- Background decoration -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl"
+      ></div>
+      <div
+        class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+      ></div>
+    </div>
+
+    <div class="flex flex-col h-screen relative z-10">
+      <!-- Header -->
+      <div class="px-4 py-6 flex items-center justify-between relative">
+        <div class="flex items-center space-x-3">
+          <button id="back-btn" class="p-2 rounded-xl glass-card size-10">
+            <i class="fi fi-rr-arrow-left text-sm"></i>
+          </button>
+        </div>
+
+        <div
+          class="flex items-center space-x-2 absolute left-[50%] -translate-x-[50%]"
+        >
+          <h1 class="font-calsans font-extrabold text-xl">DRAFT</h1>
+          <i class="fi fi-br-crown text-pink-500 crown-glow text-xl pt-1"></i>
+        </div>
+
+        <button class="p-2 rounded-xl glass-card size-10">
+          <i class="fi fi-rr-bell text-sm"></i>
+        </button>
+      </div>
+      <div id="alert" class="hidden mx-4 mb-4 p-3 rounded-xl text-sm"></div>
+
+      <!-- Main Content -->
+      <div class="flex-1 px-4 pb-24 overflow-y-auto">
+        <div class="mb-6">
+          <h1 class="font-calsans text-2xl text-white mb-1">Create League</h1>
+          <p class="text-white/60 text-sm">Set up your fantasy league</p>
+        </div>
+        <form id="create-league-form" class="space-y-6">
+          <!-- League Name -->
+          <div class="form-card rounded-2xl p-5">
+            <label class="block text-sm font-semibold text-white mb-3">
+              League Name
+            </label>
+            <input
+              name="league-name"
+              type="text"
+              placeholder="Enter your league name"
+              class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-white/40"
+              required
+            />
+          </div>
+
+          <!-- Season Selection -->
+          <div class="form-card rounded-2xl p-5">
+            <label class="block text-sm font-semibold text-white mb-3">
+              Season
+            </label>
+            <select
+              id="season-select"
+              name="season"
+              class="input-field w-full px-4 py-3 rounded-xl text-white"
+              required
+            >
+              <option value="">Loading seasons...</option>
+            </select>
+          </div>
+
+          <!-- Join Code -->
+          <div class="form-card rounded-2xl p-5">
+            <label class="block text-sm font-semibold text-white mb-3">
+              Join Code
+            </label>
+            <div class="flex items-center gap-3">
+              <input
+                id="join-code"
+                name="join-code"
+                type="text"
+                inputmode="latin"
+                maxlength="5"
+                placeholder="ABCDE"
+                class="input-field w-full px-4 py-3 rounded-xl text-white placeholder-white/40 tracking-widest uppercase"
+                required
+              />
+              <button
+                type="button"
+                id="regen-code"
+                class="px-3 py-2 rounded-lg glass-card hover:bg-white/10 text-sm"
+              >
+                Regenerate
+              </button>
+            </div>
+            <p class="text-xs text-white/60 mt-2">
+              Share this 5-character code so others can join your league.
+            </p>
+          </div>
+
+          <!-- League Settings -->
+          <div class="form-card rounded-2xl p-5">
+            <h3 class="text-sm font-semibold text-white mb-4">
+              League Settings
+            </h3>
+
+            <div class="grid grid-cols-2 gap-4 mb-5">
+              <div>
+                <label class="block text-xs text-white/80 mb-2"
+                  >Max Players</label
+                >
+                <input
+                  name="max-players"
+                  type="number"
+                  min="2"
+                  max="12"
+                  value="8"
+                  class="input-field w-full px-3 py-2 rounded-lg text-white text-sm"
+                />
+              </div>
+              <div>
+                <label class="block text-xs text-white/80 mb-2"
+                  >Roster Size</label
+                >
+                <input
+                  name="roster-size"
+                  type="number"
+                  min="1"
+                  max="8"
+                  value="4"
+                  class="input-field w-full px-3 py-2 rounded-lg text-white text-sm"
+                />
+              </div>
+            </div>
+
+            <div class="mb-5">
+              <label class="block text-xs text-white/80 mb-3"
+                >Draft Format</label
+              >
+              <div class="flex space-x-6">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="draft-format"
+                    value="snake"
+                    checked
+                    class="radio-custom"
+                  />
+                  <span class="text-sm text-white">Snake Draft</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="draft-format"
+                    value="linear"
+                    class="radio-custom"
+                  />
+                  <span class="text-sm text-white">Linear Draft</span>
+                </label>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs text-white/80 mb-3"
+                >Draft Occurrence</label
+              >
+              <div class="space-y-2">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="draft-timing"
+                    value="once"
+                    checked
+                    class="radio-custom"
+                  />
+                  <span class="text-sm text-white">Once (pre-season)</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="draft-timing"
+                    value="weekly"
+                    class="radio-custom"
+                  />
+                  <span class="text-sm text-white">Before each episode</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="mt-5">
+              <label class="block text-xs text-white/80 mb-3"
+                >Draft Rules</label
+              >
+              <div class="space-y-3">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="draft-ownership"
+                    value="unique"
+                    checked
+                    class="radio-custom"
+                  />
+                  <span class="text-sm text-white">Single Owner per queen</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="draft-ownership"
+                    value="multiple"
+                    class="radio-custom"
+                  />
+                  <span class="text-sm text-white"
+                    >Multiple owners per queen</span
+                  >
+                </label>
+                <div class="ml-6">
+                  <label class="block text-xs text-white/60 mb-1"
+                    >Max Owners Per Queen</label
+                  >
+                  <input
+                    name="max-owners"
+                    type="number"
+                    min="1"
+                    max="12"
+                    value="2"
+                    class="input-field w-full px-3 py-2 rounded-lg text-white text-sm"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Create Button -->
+          <div class="pt-4">
+            <button
+              id="submit-btn"
+              type="submit"
+              class="create-btn w-full py-4 rounded-xl text-white font-semibold text-sm"
+            >
+              Create League
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <div
+        class="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#110006] via-[#110006] to-transparent p-4"
+      >
+        <div class="glass-card rounded-2xl">
+          <div class="flex justify-around py-3">
+            <button class="flex flex-col items-center space-y-1 nav-active">
+              <i class="fi fi-rr-list text-lg"></i>
+              <span class="text-xs">Leagues</span>
+            </button>
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-home text-lg"></i>
+              <span class="text-xs">Overview</span>
+            </button>
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-crown text-lg"></i>
+              <span class="text-xs">Draft</span>
+            </button>
+            <button
+              class="flex flex-col items-center space-y-1 text-white hover:text-white transition-colors"
+            >
+              <i class="fi fi-rr-screen text-lg"></i>
+              <span class="text-xs">Episodes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/create-league.js"></script>
+  </body>
+</html>
